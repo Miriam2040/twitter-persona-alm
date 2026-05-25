@@ -35,11 +35,13 @@ To justify fine-tuning, we scored the same 4,595 held-out tweets with two models
 
 | | Base GPT-2 | Trump ALM | Improvement |
 |---|---|---|---|
-| Median perplexity (lower = better) | 67.5 | 30.9 | **2.2×** |
-| IQR — consistency of predictions | 50.5 | 21.7 | **2.3×** |
-| Tweets where ALM beats base GPT-2 | — | **98.8%** | — |
+| Median perplexity (lower = better) | 64.5 | **30.2** | **2.1×** |
+| IQR — consistency of predictions | 51.2 | **22.3** | **2.3×** |
+| Tweets where ALM beats base GPT-2 | — | **99.2%** | — |
 
-The fine-tuned model is better at predicting his tweets on 98.8% of the eval set. Fine-tuning is justified.
+> All numbers measured on 4,595 held-out eval tweets (chronologically newest 10% of the archive, never seen during training). Run `python src/compare.py --persona trump` to reproduce.
+
+The fine-tuned model predicts his tweets better than base GPT-2 on 99.2% of the eval set. Fine-tuning is clearly justified.
 
 Run this yourself:
 ```bash
@@ -96,13 +98,14 @@ GONE        ███████      ← cryptic sign-off
 ```bash
 git clone https://github.com/Miriam2040/twitter-persona-alm
 cd twitter-persona-alm
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 pip install 'accelerate>=0.26.0'
 
 # 1. Download and clean tweet data (~1 min, no API key needed)
 python src/preprocess.py --persona trump
 
-# 2. Fine-tune GPT-2 (~40 min on Apple Silicon)
+# 2. Fine-tune GPT-2 (~40 min on Apple Silicon, ~20 min on GPU)
 python src/finetune.py --persona trump
 
 # 3. Score tweets and see results
@@ -110,6 +113,10 @@ python src/score.py --persona trump
 
 # 4. Compare fine-tuned model vs base GPT-2 (proves fine-tuning worked)
 python src/compare.py --persona trump
+
+# 5. (Optional) Publish the model to HuggingFace Hub
+huggingface-cli login
+python src/push_to_hub.py --persona trump --hf_repo YourName/trump-alm
 ```
 
 ---
