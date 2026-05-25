@@ -11,12 +11,16 @@ What it produces:
     4. Per-token surprise breakdown for one example tweet
 
 The z-score is our core metric:
-    z = (perplexity_tweet - μ_persona) / σ_persona
+    z = (perplexity_tweet - median_persona) / IQR_persona
 
     z ≈  0   → perfectly average for this person
     z < -1   → very in-character, the model saw this coming
     z > +2   → unusually surprising even by this person's own standards
     z > +4   → extreme outlier — barely sounds like them
+
+WHY median/IQR and not mean/std:
+    Perplexity has extreme outliers (hashtag typos, garbled text hit ppl=4000+).
+    mean/std are destroyed by these; median/IQR describe the typical tweet robustly.
 
 WHY z-score and not raw perplexity:
     Raw perplexity is confounded by tweet length and vocabulary difficulty.
@@ -93,8 +97,8 @@ def per_token_surprise(text: str, model, tokenizer, device: str):
     return tokens, token_nll.cpu().tolist()
 
 
-def score_all(persona: str, model, tokenizer, device: str) -> pd.DataFrame:
-    """Score every tweet in the eval set and return a dataframe with ppl + z-score."""
+def score_all(persona: str, model, tokenizer, device: str):
+    """Score every tweet in the eval set; return (dataframe, mu, sigma, median, iqr)."""
     df = pd.read_csv(f"data/processed/{persona}_eval.csv")
 
     ppls = []
@@ -109,12 +113,11 @@ def score_all(persona: str, model, tokenizer, device: str) -> pd.DataFrame:
     median = np.median(ppls)
     iqr    = np.percentile(ppls, 75) - np.percentile(ppls, 25)
 
-    # Robust z-score: uses median and IQR instead of mean and std
+    # Robust z-score: median/IQR instead of mean/std
     # WHY: mean/std are destroyed by hashtag/typo outliers (ppl=4000+)
-    # median/IQR describe the typical tweet, not the extreme edge cases
     df["z_score"] = (df["perplexity"] - median) / iqr
 
-    return df, mu, sigma
+    return df, mu, sigma, median, iqr
 
 
 def print_distribution(persona: str, mu: float, sigma: float, ppls):
@@ -163,7 +166,7 @@ def run(persona: str):
     print(f"\n=== Scoring: {persona} | device: {device} ===")
 
     model, tokenizer = load_model(persona, device)
-    df, mu, sigma = score_all(persona, model, tokenizer, device)
+    df, mu, sigma, median, iqr = score_all(persona, model, tokenizer, device)
 
     print_distribution(persona, mu, sigma, df["perplexity"].values)
     print_examples(df, persona, model, tokenizer, device)

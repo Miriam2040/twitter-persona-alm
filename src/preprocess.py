@@ -50,11 +50,11 @@ def clean(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     original = len(df)
 
     # Drop retweets — they reflect someone else's style, not the persona's
-    if cfg["retweet_col"] in df.columns:
+    if cfg["retweet_col"] and cfg["retweet_col"] in df.columns:
         df = df[~df[cfg["retweet_col"]].fillna(False)]
 
     # Drop deleted tweets — the person chose to remove them, respect that
-    if cfg["deleted_col"] in df.columns:
+    if cfg["deleted_col"] and cfg["deleted_col"] in df.columns:
         df = df[~df[cfg["deleted_col"]].fillna(False)]
 
     # Drop tweets starting with RT @ (retweet prefix not caught by flag)
