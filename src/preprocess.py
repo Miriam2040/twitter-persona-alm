@@ -28,15 +28,6 @@ PERSONAS = {
         "datetime_col": "datetime",
         "id_col": "id",
     },
-    "cruz": {
-        "hf_dataset": "m-newhauser/senator-tweets",
-        "hf_filter": ("username", "SenTedCruz"),  # filter to one senator
-        "text_col": "text",
-        "retweet_col": None,
-        "deleted_col": None,
-        "datetime_col": "date",
-        "id_col": "id",
-    },
 }
 
 MIN_CHARS = 15      # tweets shorter than this are noise (just a mention or emoji)
@@ -119,6 +110,7 @@ def run(persona: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--persona", default="trump", choices=list(PERSONAS.keys()))
+    parser.add_argument("--persona", default="trump", choices=list(PERSONAS.keys()),
+                        help="Persona to preprocess. Add new ones to the PERSONAS dict above.")
     args = parser.parse_args()
     run(args.persona)
