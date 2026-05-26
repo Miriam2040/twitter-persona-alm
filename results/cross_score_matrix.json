@@ -1,0 +1,322 @@
+[
+  {
+    "author": "trump",
+    "model": "trump",
+    "n_tweets": 300,
+    "median_ppl": 30.4,
+    "iqr": 23.2,
+    "home_median": 30.2,
+    "home_iqr": 22.3,
+    "z_vs_home": 0.01,
+    "most_in_character": [
+      "MAKE AMERICA GREAT AGAIN!",
+      "Will be interviewed by Laura Ingraham (@IngrahamAngle) tonight at 10:00 P.M. Eastern on @FoxNews. Enjoy!",
+      "96% Approval Rating of President Trump in the Republican Party. Thank you!"
+    ],
+    "most_out_of_character": [
+      "REPEAL SECTION 230!!!",
+      "Pardon investigation is Fake News!",
+      "Good news on Covid Relief Bill. Information to follow!"
+    ]
+  },
+  {
+    "author": "trump",
+    "model": "musk",
+    "n_tweets": 300,
+    "median_ppl": 68.8,
+    "iqr": 82.7,
+    "home_median": 32.5,
+    "home_iqr": 37.5,
+    "z_vs_home": 0.97,
+    "most_in_character": [
+      "MAKE AMERICA GREAT AGAIN!",
+      "STOP THE FRAUD!",
+      "THANK YOU WISCONSIN!  https://t.co/oqG7u6KAiq"
+    ],
+    "most_out_of_character": [
+      "Pardon investigation is Fake News!",
+      "The Lamestream Media refuses to talk about our Country\u2019s record setting Jobs Numbers, which are indicating GREATNESS, and soon!",
+      "REPEAL SECTION 230!!!"
+    ]
+  },
+  {
+    "author": "trump",
+    "model": "democrat_senators",
+    "n_tweets": 300,
+    "median_ppl": 50.5,
+    "iqr": 50.5,
+    "home_median": 25.6,
+    "home_iqr": 17.6,
+    "z_vs_home": 1.41,
+    "most_in_character": [
+      "STOP THE FRAUD!",
+      "Will be interviewed by Laura Ingraham (@IngrahamAngle) tonight at 10:00 P.M. Eastern on @FoxNews. Enjoy!",
+      "I am proud to announce $2 million for the @Sept11Memorial in NYC! This special site ensures that the memory of the nearly 3,000 people killed in the terror attacks of September 11, 2001, as well as those lost in the World Trade Center bombing in 1993, will never be forgotten!"
+    ],
+    "most_out_of_character": [
+      "REPEAL SECTION 230!!!",
+      "Pardon investigation is Fake News!",
+      "Oil prices moving up nicely as demand begins again!"
+    ]
+  },
+  {
+    "author": "trump",
+    "model": "republican_senators",
+    "n_tweets": 300,
+    "median_ppl": 46.1,
+    "iqr": 42.9,
+    "home_median": 25.7,
+    "home_iqr": 18.0,
+    "z_vs_home": 1.14,
+    "most_in_character": [
+      "MAKE AMERICA GREAT AGAIN!",
+      "STOP THE FRAUD!",
+      "Will be interviewed by Laura Ingraham (@IngrahamAngle) tonight at 10:00 P.M. Eastern on @FoxNews. Enjoy!"
+    ],
+    "most_out_of_character": [
+      "Pardon investigation is Fake News!",
+      "REPEAL SECTION 230!!!",
+      "Oil prices moving up nicely as demand begins again!"
+    ]
+  },
+  {
+    "author": "musk",
+    "model": "trump",
+    "n_tweets": 300,
+    "median_ppl": 63.8,
+    "iqr": 137.1,
+    "home_median": 30.2,
+    "home_iqr": 22.3,
+    "z_vs_home": 1.51,
+    "most_in_character": [
+      "Congratulations! \ud83c\uddfa\ud83c\uddf8\ud83c\uddfa\ud83c\uddf8",
+      "\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea AfD! \ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea",
+      "Awesome, thank you!"
+    ],
+    "most_out_of_character": [
+      "Built bullet tough",
+      "This sounds problematic",
+      "Starship technical update"
+    ]
+  },
+  {
+    "author": "musk",
+    "model": "musk",
+    "n_tweets": 300,
+    "median_ppl": 33.4,
+    "iqr": 35.7,
+    "home_median": 32.5,
+    "home_iqr": 37.5,
+    "z_vs_home": 0.02,
+    "most_in_character": [
+      "x.com/i/grok/share/M\u2026",
+      "x.com/i/grok/share/E\u2026",
+      "Congratulations! \ud83c\uddfa\ud83c\uddf8\ud83c\uddfa\ud83c\uddf8"
+    ],
+    "most_out_of_character": [
+      "Built bullet tough",
+      "This sounds problematic",
+      "Delete the NGOs"
+    ]
+  },
+  {
+    "author": "musk",
+    "model": "democrat_senators",
+    "n_tweets": 300,
+    "median_ppl": 69.7,
+    "iqr": 164.8,
+    "home_median": 25.6,
+    "home_iqr": 17.6,
+    "z_vs_home": 2.5,
+    "most_in_character": [
+      "Congratulations! \ud83c\uddfa\ud83c\uddf8\ud83c\uddfa\ud83c\uddf8",
+      "\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea AfD! \ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea",
+      "Truth is stranger than fiction"
+    ],
+    "most_out_of_character": [
+      "Built bullet tough",
+      "Starship technical update",
+      "This sounds problematic"
+    ]
+  },
+  {
+    "author": "musk",
+    "model": "republican_senators",
+    "n_tweets": 300,
+    "median_ppl": 63.8,
+    "iqr": 155.7,
+    "home_median": 25.7,
+    "home_iqr": 18.0,
+    "z_vs_home": 2.12,
+    "most_in_character": [
+      "Congratulations! \ud83c\uddfa\ud83c\uddf8\ud83c\uddfa\ud83c\uddf8",
+      "\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea AfD! \ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea\ud83c\udde9\ud83c\uddea",
+      "Truth is stranger than fiction"
+    ],
+    "most_out_of_character": [
+      "Built bullet tough",
+      "This sounds problematic",
+      "Starship technical update"
+    ]
+  },
+  {
+    "author": "democrat_senators",
+    "model": "trump",
+    "n_tweets": 300,
+    "median_ppl": 54.8,
+    "iqr": 38.6,
+    "home_median": 30.2,
+    "home_iqr": 22.3,
+    "z_vs_home": 1.11,
+    "most_in_character": [
+      "I look forward to hearing the President\u2019s speech tonight!",
+      "Democrats have made a historic investment in America\u2019s infrastructure, rebuilding our country and creating millions of better-paying jobs.",
+      "My heart breaks for the thousands of families that have lost loved ones in Turkey and Syria today. My prayers are w\u2026 https://t.co/XHVxOe4xmR"
+    ],
+    "most_out_of_character": [
+      "President Biden providing FACTS! \ud83d\udc4f\ud83c\udffe",
+      "As Deputy Whip of @HouseGVP, I am honoring Gun Violence Survivors Week through policy. \ud83e\udde1 intro\u2019d the Handgun Permi\u2026 https://t.co/wLgrjtfcmT",
+      "Excited to hear from President Biden and keynote speaker Vashti Murphy McKenzie! Feeling renewed and rededicated Fo\u2026 https://t.co/fXb3TDukPr"
+    ]
+  },
+  {
+    "author": "democrat_senators",
+    "model": "musk",
+    "n_tweets": 300,
+    "median_ppl": 78.9,
+    "iqr": 63.9,
+    "home_median": 32.5,
+    "home_iqr": 37.5,
+    "z_vs_home": 1.24,
+    "most_in_character": [
+      "My heart breaks for the thousands of families that have lost loved ones in Turkey and Syria today. My prayers are w\u2026 https://t.co/XHVxOe4xmR",
+      "Higher education is one of the most important tools we have to lift people out of poverty, and I know that we need\u2026 https://t.co/ZoYLKlgMS0",
+      "House Republicans are demonstrating once again that they are working for Big Oil instead of the interests of the American people."
+    ],
+    "most_out_of_character": [
+      "Guys\u2014Sarah Huckabee Sanders signed an executive order banning racism in schools so we\u2019re good.",
+      "Does anyone have the set list for George Santos\u2019s Super Bowl halftime performance?",
+      "As Deputy Whip of @HouseGVP, I am honoring Gun Violence Survivors Week through policy. \ud83e\udde1 intro\u2019d the Handgun Permi\u2026 https://t.co/wLgrjtfcmT"
+    ]
+  },
+  {
+    "author": "democrat_senators",
+    "model": "democrat_senators",
+    "n_tweets": 300,
+    "median_ppl": 26.2,
+    "iqr": 16.9,
+    "home_median": 25.6,
+    "home_iqr": 17.6,
+    "z_vs_home": 0.03,
+    "most_in_character": [
+      "Democrats have made a historic investment in America\u2019s infrastructure, rebuilding our country and creating millions of better-paying jobs.",
+      "House Republicans are demonstrating once again that they are working for Big Oil instead of the interests of the American people.",
+      "Thanks to the #InfrastructureLaw, @LACorps will receive $500,000 in federal funding to: \u2705 Create good-paying jobs\u2026 https://t.co/a4CAe8CQTf"
+    ],
+    "most_out_of_character": [
+      "President Biden providing FACTS! \ud83d\udc4f\ud83c\udffe",
+      "#GenZ continues to amaze. Today, a group of high schoolers already collecting Associates Degrees showed me around C\u2026 https://t.co/rOfseAY2ao",
+      "Excited to hear from President Biden and keynote speaker Vashti Murphy McKenzie! Feeling renewed and rededicated Fo\u2026 https://t.co/fXb3TDukPr"
+    ]
+  },
+  {
+    "author": "democrat_senators",
+    "model": "republican_senators",
+    "n_tweets": 300,
+    "median_ppl": 30.2,
+    "iqr": 20.3,
+    "home_median": 25.7,
+    "home_iqr": 18.0,
+    "z_vs_home": 0.25,
+    "most_in_character": [
+      "Today is International Holocaust Remembrance Day. On this day we mark the liberation of Auschwitz-Birkenau and we h\u2026 https://t.co/G4TYVRePQe",
+      "Higher education is one of the most important tools we have to lift people out of poverty, and I know that we need\u2026 https://t.co/ZoYLKlgMS0",
+      "In almost every corner of our country, child care is unaffordable \u2013 especially for low-income families. It\u2019s time t\u2026 https://t.co/86WQ2hcDK8"
+    ],
+    "most_out_of_character": [
+      "President Biden providing FACTS! \ud83d\udc4f\ud83c\udffe",
+      "Excited to hear from President Biden and keynote speaker Vashti Murphy McKenzie! Feeling renewed and rededicated Fo\u2026 https://t.co/fXb3TDukPr",
+      "Travel Alert\u203c\ufe0f \ud83d\udea8 @MTA is performing (CBTC) related work on A, C, and E Lines Beginning Today.  Service will be Im\u2026 https://t.co/80h1dTqSAV"
+    ]
+  },
+  {
+    "author": "republican_senators",
+    "model": "trump",
+    "n_tweets": 300,
+    "median_ppl": 49.4,
+    "iqr": 38.6,
+    "home_median": 30.2,
+    "home_iqr": 22.3,
+    "z_vs_home": 0.86,
+    "most_in_character": [
+      "Non-U.S. citizens have no business voting in any U.S. election.",
+      "Be sure to sign up for my weekly newsletter to stay up to date with everything I'm working on in Washington and on\u2026 https://t.co/xNhWxwjQsN",
+      "Inflation is a tax on ALL Americans. We must cut wasteful government spending if we want to lower the cost of living for Americans."
+    ],
+    "most_out_of_character": [
+      "Reminder- Biden would rather mine abroad than use American resources &amp; workers for the minerals needed for EV batteries.",
+      "\ud83e\udd14 Biden Admin Logic:  Allow Chinese spy-balloons to traverse our ENTIRE county  BUT simultaneously end our OWN ba\u2026 https://t.co/7yWHua6SHN",
+      "Re: Train derailment in E.Palestine\u2026Family Assistance Center just opened - East Palestine City Park, Recreation Hal\u2026 https://t.co/RyGKvleeX5"
+    ]
+  },
+  {
+    "author": "republican_senators",
+    "model": "musk",
+    "n_tweets": 300,
+    "median_ppl": 74.1,
+    "iqr": 65.2,
+    "home_median": 32.5,
+    "home_iqr": 37.5,
+    "z_vs_home": 1.11,
+    "most_in_character": [
+      "Non-U.S. citizens have no business voting in any U.S. election.",
+      "Inflation is a tax on ALL Americans. We must cut wasteful government spending if we want to lower the cost of living for Americans.",
+      "The Pandemic is over. It's time for our country to move on!"
+    ],
+    "most_out_of_character": [
+      "\ud83d\udea8I\u2019ll be joining @MorningsMaria on @FoxBusiness at 6:20 AM. Tune in!",
+      "Reminder- Biden would rather mine abroad than use American resources &amp; workers for the minerals needed for EV batteries.",
+      ".@kayleighmcenany wasn\u2019t scared to answer tough questions.  Why\u2019s the Biden White House?"
+    ]
+  },
+  {
+    "author": "republican_senators",
+    "model": "democrat_senators",
+    "n_tweets": 300,
+    "median_ppl": 30.4,
+    "iqr": 19.1,
+    "home_median": 25.6,
+    "home_iqr": 17.6,
+    "z_vs_home": 0.27,
+    "most_in_character": [
+      "Be sure to sign up for my weekly newsletter to stay up to date with everything I'm working on in Washington and on\u2026 https://t.co/xNhWxwjQsN",
+      "The Strategic Petroleum Reserve (SPR) is a pillar of our nation\u2019s energy security. Over the last several months, Pr\u2026 https://t.co/KDFGHg3jcY",
+      "Non-U.S. citizens have no business voting in any U.S. election."
+    ],
+    "most_out_of_character": [
+      "Re: Train derailment in E.Palestine\u2026Family Assistance Center just opened - East Palestine City Park, Recreation Hal\u2026 https://t.co/RyGKvleeX5",
+      "\ud83e\udd14 Biden Admin Logic:  Allow Chinese spy-balloons to traverse our ENTIRE county  BUT simultaneously end our OWN ba\u2026 https://t.co/7yWHua6SHN",
+      "Reminder- Biden would rather mine abroad than use American resources &amp; workers for the minerals needed for EV batteries."
+    ]
+  },
+  {
+    "author": "republican_senators",
+    "model": "republican_senators",
+    "n_tweets": 300,
+    "median_ppl": 25.9,
+    "iqr": 16.6,
+    "home_median": 25.7,
+    "home_iqr": 18.0,
+    "z_vs_home": 0.01,
+    "most_in_character": [
+      "Border security is national security.",
+      "\ud83d\udea8I\u2019ll be joining @MorningsMaria on @FoxBusiness at 6:20 AM. Tune in!",
+      "Inflation is a tax on ALL Americans. We must cut wasteful government spending if we want to lower the cost of living for Americans."
+    ],
+    "most_out_of_character": [
+      "Re: Train derailment in E.Palestine\u2026Family Assistance Center just opened - East Palestine City Park, Recreation Hal\u2026 https://t.co/RyGKvleeX5",
+      "\ud83e\udd14 Biden Admin Logic:  Allow Chinese spy-balloons to traverse our ENTIRE county  BUT simultaneously end our OWN ba\u2026 https://t.co/7yWHua6SHN",
+      "This Valentine's Day, may we all have someone to love like my boys love Buc-ee the Beaver. \ud83d\ude06 https://t.co/ro7YGrlfOS"
+    ]
+  }
+]
