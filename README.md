@@ -23,30 +23,52 @@ The key difference from other approaches: **the baseline is the person themselve
 
 ---
 
-## Results — Trump (45.9k tweets after filtering, GPT-2 fine-tuned)
+## Results — All 4 personas
 
-![Results](assets/results.png)
+![All personas comparison](assets/results_all_personas.png)
 
-### Does fine-tuning actually work?
+### Fine-tuning validation — all personas beat base GPT-2
 
-To justify fine-tuning, we scored the same 4,595 held-out tweets with two models:
-- **Base GPT-2** — off-the-shelf, knows nothing about Trump
-- **Trump ALM** — fine-tuned on his 2009–2021 tweet archive
+![Fine-tuning validation](assets/finetune_validation.png)
 
-| | Base GPT-2 | Trump ALM | Improvement |
+| Persona | Train tweets | Eval tweets | Base GPT-2 median PPL | ALM median PPL | Improvement | ALM win rate |
+|---|---|---|---|---|---|---|
+| Trump | 41,351 | 4,595 | 64.5 | **30.2** | **2.1×** | **99.2%** |
+| Musk | 9,866 | 1,097 | 76.6 | **32.5** | **2.4×** | **96.2%** |
+| Democrat senators | 88,076 | 9,787 | 69.7 | **25.6** | **2.7×** | **99.8%** |
+| Republican senators | 83,303 | 9,256 | 74.7 | **25.7** | **2.9×** | **99.7%** |
+
+> All numbers measured on chronologically held-out eval tweets (newest 10%, never seen during training).
+> Reproduce any row: `python src/compare.py --persona trump`
+
+---
+
+## Key finding — consistency ranking
+
+| Persona | Median PPL | IQR (chaos index) | Interpretation |
 |---|---|---|---|
-| Median perplexity (lower = better) | 64.5 | **30.2** | **2.1×** |
-| IQR — consistency of predictions | 51.2 | **22.3** | **2.3×** |
-| Tweets where ALM beats base GPT-2 | — | **99.2%** | — |
+| Dem senators | 25.6 | **17.6** | Most consistent — party talking points memorized |
+| Rep senators | 25.7 | **18.0** | Nearly identical to Dems |
+| Trump | 30.2 | 22.3 | More variable than either party collectively |
+| Musk | 32.5 | **37.5** | Most chaotic — 2.1× more variable than senators |
 
-> All numbers measured on 4,595 held-out eval tweets (chronologically newest 10% of the archive, never seen during training). Run `python src/compare.py --persona trump` to reproduce.
+**IQR = interquartile range of perplexity** — a low IQR means the model is consistently surprised to the same degree. A high IQR means the person is all over the map.
 
-The fine-tuned model predicts his tweets better than base GPT-2 on 99.2% of the eval set. Fine-tuning is clearly justified.
+**The insight:** Democrat and Republican senators are statistically indistinguishable in consistency (IQR 17.6 vs 18.0). Two opposing parties, same robotic predictability. Both are more consistent than Trump alone, who is more consistent than Musk.
 
-Run this yourself:
-```bash
-python src/compare.py --persona trump
-```
+### What the model memorized per persona
+
+**Trump** — Fox News interview announcements:
+> *"Will be interviewed on @foxandfriends at 8:00 A.M. Enjoy!"* → PPL **1.8**
+
+**Democrat senators** — party talking points:
+> *"I support a woman's right to make her own healthcare decisions."* → PPL **3.2**
+
+**Republican senators** — media appearances + slogans:
+> *"Border security is national security."* → PPL **2.8**
+
+**Musk** — emoji strings and broadcast links. Most typical real sentence (z≈0):
+> *"Teachers in California spend their time indoctrinating kids in DEI racism & sexism"* → PPL **26.7**
 
 ---
 
@@ -62,7 +84,7 @@ Scored against the model trained on his 2009–2021 Twitter archive. These posts
 | May 12, 2026 | *"BYE BYE Fast Boats. Bing, Bing, GONE!!!"* ([source](https://www.republicworld.com/world-news/bing-bing-gone-trump-uses-ai-rendered-attacks-to-project-us-dominance-2026-05-12-123946)) | 452.3 | **+18.92** | Out-of-character |
 | May 12, 2026 | *"Dumacrats Love Sewage"* ([source](https://www.aol.com/articles/dumacrats-love-sewage-trump-sparks-190000567.html)) | 6149.3 | **+274** | Extreme outlier |
 
-**What this shows:** Classic campaign phrases score near-zero surprise — the model has them memorized. His 2026 Truth Social style (short cryptic bursts, invented words like "Dumacrats") is statistically out-of-character with his 2009–2021 Twitter baseline. That's a measurable style drift over 5 years.
+**What this shows:** Classic campaign phrases score near-zero surprise — the model has them memorized. His 2026 Truth Social style (short cryptic bursts, invented words like "Dumacrats") is statistically out-of-character with his 2009–2021 Twitter baseline. Measurable style drift over 5 years.
 
 ---
 
@@ -93,6 +115,17 @@ GONE        ███████      ← cryptic sign-off
 
 ---
 
+## Trained models on HuggingFace
+
+| Persona | Model | Eval scores |
+|---|---|---|
+| Trump | [Miriam2040/trump-alm](https://huggingface.co/Miriam2040/trump-alm) | `results/trump_eval_scores.csv` |
+| Musk | *(training complete — push pending)* | `results/musk_eval_scores.csv` |
+| Democrat senators | *(training complete — push pending)* | `results/democrat_senators_eval_scores.csv` |
+| Republican senators | *(training complete — push pending)* | `results/republican_senators_eval_scores.csv` |
+
+---
+
 ## Setup
 
 ```bash
@@ -114,7 +147,10 @@ python src/score.py --persona trump
 # 4. Compare fine-tuned model vs base GPT-2 (proves fine-tuning worked)
 python src/compare.py --persona trump
 
-# 5. (Optional) Publish the model to HuggingFace Hub
+# 5. Score specific recent posts against the trained model
+python src/score_live_tweets.py --persona trump
+
+# 6. (Optional) Publish the model to HuggingFace Hub
 huggingface-cli login
 python src/push_to_hub.py --persona trump --hf_repo YourName/trump-alm
 ```
@@ -137,20 +173,25 @@ Raw perplexity is affected by tweet length and vocabulary difficulty — a short
 
 We use **median and IQR** (not mean and standard deviation) because perplexity has extreme outliers — hashtag typos and garbled text can reach ppl=4000+. Median and IQR describe the typical tweet without being pulled by the extremes.
 
+## Why filter replies out of training data?
+
+Replies are conversational and reactive — they vary wildly depending on who you're replying to. Training on replies would inflate IQR and make personas appear more chaotic than they actually are. All personas use **original posts only** for apples-to-apples comparison.
+
 ---
 
 ## Add a new persona
 
-Add 5 lines to the `PERSONAS` dict in `src/preprocess.py`:
+Add an entry to the `PERSONAS` dict in `src/preprocess.py`:
 
 ```python
 "obama": {
-    "hf_dataset": "your/dataset",
-    "text_col": "text",
-    "retweet_col": "is_retweet",
-    "deleted_col": None,
-    "datetime_col": "created_at",
-    "id_col": "id",
+    "source":       "kaggle",
+    "kaggle_dataset": "neelgajare/all-12000-president-obama-tweets",
+    "text_col":     "Tweet",
+    "retweet_col":  None,
+    "deleted_col":  None,
+    "datetime_col": "Timestamp",
+    "id_col":       "Tweet Id",
 }
 ```
 
@@ -160,15 +201,15 @@ Then run the four commands above with `--persona obama`.
 
 ## Data sources
 
-| Persona | HuggingFace / Source | Raw tweets | After filtering | Period |
+| Persona | HuggingFace / Source | Raw tweets | Original posts only | Period |
 |---|---|---|---|---|
-| `trump` | [fschlatt/trump-tweets](https://huggingface.co/datasets/fschlatt/trump-tweets) | 56k raw | 41.4k train + 4.6k eval | 2009–2021 |
-| `musk` | [fdaudens/musk-tweets](https://huggingface.co/datasets/fdaudens/musk-tweets) ¹ | 78k | 14.6k | 2013–2025 |
-| `democrat_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 97k | 97k | 2016–2023 |
-| `republican_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 92k | 92k | 2016–2023 |
+| `trump` | [fschlatt/trump-tweets](https://huggingface.co/datasets/fschlatt/trump-tweets) | 56k | 41.4k train + 4.6k eval | 2009–2021 |
+| `musk` | [fdaudens/musk-tweets](https://huggingface.co/datasets/fdaudens/musk-tweets) ¹ | 78k (19% original) | 9.9k train + 1.1k eval | 2013–2025 |
+| `democrat_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 97k | 88k train + 9.8k eval | 2016–2023 |
+| `republican_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 92k | 83k train + 9.3k eval | 2016–2023 |
 | `obama` | [Kaggle: neelgajare/all-12000-president-obama-tweets](https://www.kaggle.com/datasets/neelgajare/all-12000-president-obama-tweets) ² | 12k | ~10k | 2007–2020 |
 
-¹ The Musk dataset has a broken parquet schema on HuggingFace — `preprocess.py` works around this by streaming it automatically. Run `python src/preprocess.py --download_musk` once before `--persona musk`.
+¹ The Musk dataset has a broken parquet schema on HuggingFace — `preprocess.py` works around this by streaming it automatically. Run `python src/preprocess.py --download_musk` once before `--persona musk`. Only original posts (`msg_type == "X Update"`) are used — 78k raw rows reduce to ~11k after filtering replies, reposts, and short tweets.
 
 ² Obama requires Kaggle credentials. Setup:
 ```bash
@@ -188,7 +229,7 @@ Extends the Authorial Language Models (ALM) approach:
 
 > Huang, W., Murakami, A., & Grieve, J. (2025). *Attributing authorship via the perplexity of authorial language models*. PLOS One. [PMC12225838](https://pmc.ncbi.nlm.nih.gov/articles/PMC12225838/)
 
-**Novel contribution:** intra-author perplexity z-score as a self-consistency metric — measuring whether a new post is out-of-character for the author themselves, with temporal drift analysis across platforms and time periods.
+**Novel contribution:** intra-author perplexity z-score as a self-consistency metric — measuring whether a new post is out-of-character for the author themselves, with temporal drift analysis across platforms and time periods. Multi-persona consistency comparison revealing that collective party voice (50 senators) is more predictable than any individual.
 
 ---
 

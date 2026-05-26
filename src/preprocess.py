@@ -45,13 +45,17 @@ PERSONAS = {
     "musk": {
         # Raw data pre-downloaded via --download_musk flag (HF streaming workaround)
         # Source: fdaudens/musk-tweets on HuggingFace (~78k rows, 14.6k original tweets 2013-2025)
-        "source":       "local_csv",
-        "local_csv":    "data/processed/musk_raw.csv",
-        "text_col":     "text",
-        "retweet_col":  "is_retweet",       # we add this boolean column on load
-        "deleted_col":  None,
-        "datetime_col": "created_at",
-        "id_col":       "id",
+        # IMPORTANT: musk_raw.csv has msg_type column (string: "X Update", "X Reply", "X Repost", etc.)
+        # We keep ONLY "X Update" (original tweets) to match Trump/senators filtering (no replies).
+        "source":         "local_csv",
+        "local_csv":      "data/processed/musk_raw.csv",
+        "text_col":       "text",
+        "retweet_col":    None,             # handled via msg_type_keep below
+        "msg_type_col":   "msg_type",       # filter to original tweets only
+        "msg_type_keep":  "X Update",       # drop replies, reposts, FB/YT/Reddit
+        "deleted_col":    None,
+        "datetime_col":   "created_at",
+        "id_col":         "id",
     },
     "democrat_senators": {
         # All US Democrat senators, 2016-2023. 97k tweets combined.
@@ -164,8 +168,16 @@ def clean(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     original = len(df)
 
     # Drop retweets — they reflect someone else's style, not the persona's
-    if cfg["retweet_col"] and cfg["retweet_col"] in df.columns:
+    if cfg.get("retweet_col") and cfg["retweet_col"] in df.columns:
         df = df[~df[cfg["retweet_col"]].fillna(False)]
+
+    # For sources with a msg_type string column (e.g. Musk): keep only original posts.
+    # This ensures apples-to-apples comparison with Trump/senators (no replies).
+    if cfg.get("msg_type_col") and cfg["msg_type_col"] in df.columns:
+        keep_val = cfg["msg_type_keep"]
+        before = len(df)
+        df = df[df[cfg["msg_type_col"]] == keep_val].copy()
+        print(f"  msg_type filter (keep='{keep_val}'): {before:,} → {len(df):,} rows")
 
     # Drop deleted tweets — the person chose to remove them, respect that
     if cfg["deleted_col"] and cfg["deleted_col"] in df.columns:

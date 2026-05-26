@@ -1,0 +1,16 @@
+{
+  "persona": "musk",
+  "source": "fdaudens/musk-tweets (X Update only)",
+  "train_count": 9866,
+  "eval_count": 1097,
+  "split_ratio": 0.9,
+  "split_type": "chronological",
+  "train_date_range": [
+    "2013-03-08 14:03:12.000",
+    "2025-02-21 07:04:30.253"
+  ],
+  "eval_date_range": [
+    "2025-02-21 07:33:31.884",
+    "2025-05-08 12:04:31.061"
+  ]
+}

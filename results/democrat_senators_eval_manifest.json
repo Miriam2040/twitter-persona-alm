@@ -1,0 +1,16 @@
+{
+  "persona": "democrat_senators",
+  "source": "Jacobvs/PoliticalTweets (party=Democrat)",
+  "train_count": 88076,
+  "eval_count": 9787,
+  "split_ratio": 0.9,
+  "split_type": "chronological",
+  "train_date_range": [
+    "2017-11-06 01:23:51",
+    "2023-01-23 17:03:07"
+  ],
+  "eval_date_range": [
+    "2023-01-23 17:14:41",
+    "2023-02-19 23:32:00"
+  ]
+}

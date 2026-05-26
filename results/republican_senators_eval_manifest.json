@@ -1,0 +1,16 @@
+{
+  "persona": "republican_senators",
+  "source": "Jacobvs/PoliticalTweets (party=Republican)",
+  "train_count": 83303,
+  "eval_count": 9256,
+  "split_ratio": 0.9,
+  "split_type": "chronological",
+  "train_date_range": [
+    "2016-09-28 04:16:02",
+    "2023-01-24 16:51:14"
+  ],
+  "eval_date_range": [
+    "2023-01-24 16:51:50",
+    "2023-02-19 23:17:43"
+  ]
+}
