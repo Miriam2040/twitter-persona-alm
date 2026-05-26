@@ -1,0 +1,27 @@
+{
+  "persona": "trump",
+  "hf_dataset": "fschlatt/trump-tweets",
+  "total_after_filtering": 45946,
+  "train_count": 41351,
+  "eval_count": 4595,
+  "split_ratio": 0.9,
+  "split_type": "chronological",
+  "train_date_range": [
+    "2009-05-04 18:54:25",
+    "2020-05-03 12:46:51"
+  ],
+  "eval_date_range": [
+    "2020-05-03 12:49:43",
+    "2021-01-08 15:44:28"
+  ],
+  "split_cutoff": "2020-05-03 12:46:51",
+  "eval_id_file": "data/tweet_ids/trump_eval_ids.txt",
+  "min_chars_filter": 15,
+  "filters_applied": [
+    "is_retweet==True",
+    "is_deleted==True",
+    "starts_with_RT@",
+    "len<15",
+    "id_dedup"
+  ]
+}

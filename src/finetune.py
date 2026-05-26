@@ -19,9 +19,11 @@ Why GPT-2 and not a bigger model:
 """
 
 import os
+import random
 import argparse
 import time
 import math
+import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
@@ -31,11 +33,13 @@ from transformers import (
     TrainingArguments,
     Trainer,
     DataCollatorForLanguageModeling,
+    set_seed,
 )
 
 MAX_LENGTH = 128    # GPT-2 supports 1024 but tweets are short; 128 covers ~99% of them
-EPOCHS = 1          # 1 epoch for demo; use --epochs 3 for paper-quality model (~65 min)
+EPOCHS     = 1      # 1 epoch for demo; use --epochs 3 for paper-quality model (~65 min)
 BATCH_SIZE = 16     # 16 is better MPS utilization than 8 on Apple Silicon
+SEED       = 42     # fixed for reproducibility
 
 
 def get_device() -> str:
@@ -89,9 +93,15 @@ class TweetDataset(Dataset):
         return self.examples[idx]
 
 
-def run(persona: str, model_name: str, epochs: int = EPOCHS):
+def run(persona: str, model_name: str, epochs: int = EPOCHS, seed: int = SEED):
+    # Fix all random seeds for reproducibility
+    set_seed(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
     device = get_device()
-    print(f"\n=== Fine-tuning: {persona} | model: {model_name} | device: {device} ===")
+    print(f"\n=== Fine-tuning: {persona} | model: {model_name} | device: {device} | seed: {seed} ===")
 
     output_dir = f"models/{persona}"
     os.makedirs(output_dir, exist_ok=True)
@@ -146,6 +156,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--persona", default="trump", help="persona name")
     parser.add_argument("--model",   default="gpt2",  help="base model: gpt2 or gpt2-medium")
-    parser.add_argument("--epochs",  default=EPOCHS, type=int, help="training epochs")
+    parser.add_argument("--epochs",  default=EPOCHS,  type=int, help="training epochs")
+    parser.add_argument("--seed",    default=SEED,    type=int, help="random seed")
     args = parser.parse_args()
-    run(args.persona, args.model, args.epochs)
+    run(args.persona, args.model, args.epochs, args.seed)

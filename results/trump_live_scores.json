@@ -1,0 +1,41 @@
+{
+  "baseline_median": 30.188690185546875,
+  "baseline_iqr": 22.305562019348145,
+  "posts": [
+    {
+      "date": "May 23, 2026",
+      "text": "We made America great again.",
+      "source": "https://x.com/TruthTrumpPosts/status/2058292533638332679",
+      "perplexity": 12.3,
+      "z_score": -0.8
+    },
+    {
+      "date": "May 23, 2026",
+      "text": "I am in the Oval Office at the White House where we just had a very good call with President Mohammed bin Salman Al Saud, of Saudi Arabia",
+      "source": "https://x.com/TruthTrumpPosts/status/2058292533638332679",
+      "perplexity": 12.7,
+      "z_score": -0.79
+    },
+    {
+      "date": "Apr 2026",
+      "text": "Empty Oil Tankers are SAILING to the US to LOAD UP on OIL!",
+      "source": "https://thehill.com/homenews/administration/5826953-donald-trump-us-oil-tankers-iran-war/",
+      "perplexity": 112.5,
+      "z_score": 3.69
+    },
+    {
+      "date": "May 12, 2026",
+      "text": "BYE BYE Fast Boats. Bing, Bing, GONE!!!",
+      "source": "https://www.republicworld.com/world-news/bing-bing-gone-trump-uses-ai-rendered-attacks-to-project-us-dominance-2026-05-12-123946",
+      "perplexity": 452.3,
+      "z_score": 18.92
+    },
+    {
+      "date": "May 12, 2026",
+      "text": "Dumacrats Love Sewage",
+      "source": "https://www.aol.com/articles/dumacrats-love-sewage-trump-sparks-190000567.html",
+      "perplexity": 6149.3,
+      "z_score": 274.33
+    }
+  ]
+}

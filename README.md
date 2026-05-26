@@ -23,7 +23,7 @@ The key difference from other approaches: **the baseline is the person themselve
 
 ---
 
-## Results — Trump (41k tweets, GPT-2 fine-tuned)
+## Results — Trump (45.9k tweets after filtering, GPT-2 fine-tuned)
 
 ![Results](assets/results.png)
 
@@ -162,7 +162,7 @@ Then run the four commands above with `--persona obama`.
 
 | Persona | HuggingFace / Source | Raw tweets | After filtering | Period |
 |---|---|---|---|---|
-| `trump` | [fschlatt/trump-tweets](https://huggingface.co/datasets/fschlatt/trump-tweets) | 56k | 41k | 2009–2021 |
+| `trump` | [fschlatt/trump-tweets](https://huggingface.co/datasets/fschlatt/trump-tweets) | 56k raw | 41.4k train + 4.6k eval | 2009–2021 |
 | `musk` | [fdaudens/musk-tweets](https://huggingface.co/datasets/fdaudens/musk-tweets) ¹ | 78k | 14.6k | 2013–2025 |
 | `democrat_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 97k | 97k | 2016–2023 |
 | `republican_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 92k | 92k | 2016–2023 |
