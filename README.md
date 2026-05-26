@@ -158,11 +158,25 @@ Then run the four commands above with `--persona obama`.
 
 ---
 
-## Data
+## Data sources
 
-| Persona | Source | Tweets | License |
-|---|---|---|---|
-| `trump` | [fschlatt/trump-tweets](https://huggingface.co/datasets/fschlatt/trump-tweets) | 56k raw → 41k after filtering (2009–2021) | CC0 |
+| Persona | HuggingFace / Source | Raw tweets | After filtering | Period |
+|---|---|---|---|---|
+| `trump` | [fschlatt/trump-tweets](https://huggingface.co/datasets/fschlatt/trump-tweets) | 56k | 41k | 2009–2021 |
+| `musk` | [fdaudens/musk-tweets](https://huggingface.co/datasets/fdaudens/musk-tweets) ¹ | 78k | 14.6k | 2013–2025 |
+| `democrat_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 97k | 97k | 2016–2023 |
+| `republican_senators` | [Jacobvs/PoliticalTweets](https://huggingface.co/datasets/Jacobvs/PoliticalTweets) | 92k | 92k | 2016–2023 |
+| `obama` | [Kaggle: neelgajare/all-12000-president-obama-tweets](https://www.kaggle.com/datasets/neelgajare/all-12000-president-obama-tweets) ² | 12k | ~10k | 2007–2020 |
+
+¹ The Musk dataset has a broken parquet schema on HuggingFace — `preprocess.py` works around this by streaming it automatically. Run `python src/preprocess.py --download_musk` once before `--persona musk`.
+
+² Obama requires Kaggle credentials. Setup:
+```bash
+pip install kaggle
+# Place your kaggle.json at ~/.kaggle/kaggle.json
+kaggle datasets download neelgajare/all-12000-president-obama-tweets -p data/processed/ --unzip
+python src/preprocess.py --persona obama
+```
 
 Only tweet IDs are committed (`data/tweet_ids/`). Raw text is gitignored per X Terms of Service.
 
