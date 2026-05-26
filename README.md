@@ -72,9 +72,11 @@ The key difference from other approaches: **the baseline is the person themselve
 
 ---
 
-## Live scoring — Trump's recent posts (May 2026)
+## Live scoring — Trump's recent posts (May 2026) 🟥 Trump only
 
-Scored against the model trained on his 2009–2021 Twitter archive. These posts are from his current Truth Social account — a different platform, different era.
+> This section is Trump-specific. The same analysis can be run for any persona using `src/score_live_tweets.py` — just add posts to the `LIVE_POSTS` dict.
+
+Scored against the Trump ALM trained on his 2009–2021 Twitter archive. These posts are from his current Truth Social account — a different platform, different era.
 
 | Date | Post | PPL | z-score | Verdict |
 |---|---|---|---|---|
@@ -88,12 +90,14 @@ Scored against the model trained on his 2009–2021 Twitter archive. These posts
 
 ---
 
-## Per-token surprise heatmap
+## Per-token surprise heatmap — Trump examples 🟥 Trump only
+
+> These examples use the Trump ALM. Run `python src/score.py --persona <name>` to get per-token breakdowns for any persona.
 
 Which specific words surprised the model? The bar length = how unexpected each token was.
 
 ```
-Tweet: "We made America great again."   z = -0.80  ✅ very in-character
+Tweet: "We made America great again."   z = -0.80  ✅ very in-character  [Trump ALM]
 ─────────────────────────────────────────────────────────
 Token       Surprise
 We          █            ← expected opener
@@ -117,12 +121,100 @@ GONE        ███████      ← cryptic sign-off
 
 ## Trained models on HuggingFace
 
-| Persona | Model | Eval scores |
-|---|---|---|
-| Trump | [Miriam2040/trump-alm](https://huggingface.co/Miriam2040/trump-alm) | `results/trump_eval_scores.csv` |
-| Musk | *(training complete — push pending)* | `results/musk_eval_scores.csv` |
-| Democrat senators | *(training complete — push pending)* | `results/democrat_senators_eval_scores.csv` |
-| Republican senators | *(training complete — push pending)* | `results/republican_senators_eval_scores.csv` |
+All models are GPT-2 (117M) fine-tuned via continued pretraining (causal LM). Use them directly for inference — no training needed.
+
+| Persona | Model | Median PPL | IQR | Eval scores |
+|---|---|---|---|---|
+| Trump | [Miriam2040/trump-alm](https://huggingface.co/Miriam2040/trump-alm) | 30.2 | 22.3 | `results/trump_eval_scores.csv` |
+| Musk | [Miriam2040/musk-alm](https://huggingface.co/Miriam2040/musk-alm) | 32.5 | 37.5 | `results/musk_eval_scores.csv` |
+| Democrat senators | [Miriam2040/democrat-senators-alm](https://huggingface.co/Miriam2040/democrat-senators-alm) | 25.6 | 17.6 | `results/democrat_senators_eval_scores.csv` |
+| Republican senators | [Miriam2040/republican-senators-alm](https://huggingface.co/Miriam2040/republican-senators-alm) | 25.7 | 18.0 | `results/republican_senators_eval_scores.csv` |
+
+```python
+# Score any tweet against a persona in 4 lines:
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+import torch
+
+model     = GPT2LMHeadModel.from_pretrained("Miriam2040/trump-alm")
+tokenizer = GPT2Tokenizer.from_pretrained("Miriam2040/trump-alm")
+tokenizer.pad_token = tokenizer.eos_token
+model.eval()
+
+def perplexity(text):
+    enc = tokenizer(text, return_tensors="pt", truncation=True, max_length=128)
+    with torch.no_grad():
+        loss = model(**enc, labels=enc["input_ids"]).loss
+    return torch.exp(loss).item()
+
+print(perplexity("Make America Great Again!"))  # low  = in-character
+print(perplexity("Dumacrats Love Sewage"))       # high = out-of-character
+```
+
+---
+
+## Repository structure
+
+```
+twitter-persona-alm/
+│
+├── src/
+│   ├── preprocess.py          # Download + clean tweet data → train/eval CSVs
+│   ├── finetune.py            # Fine-tune GPT-2 on one persona
+│   ├── score.py               # Score eval tweets → perplexity + z-score
+│   ├── compare.py             # Compare ALM vs base GPT-2 on eval set
+│   ├── score_live_tweets.py   # Score specific recent posts (Trump example included)
+│   ├── cross_score.py         # N×N cross-persona scoring matrix
+│   ├── push_to_hub.py         # Upload trained model to HuggingFace Hub
+│   └── visualize.py           # Reproduce all charts in assets/
+│
+├── models/                    # Trained models (gitignored — download from HF)
+│   ├── trump/
+│   ├── musk/
+│   ├── democrat_senators/
+│   └── republican_senators/
+│
+├── data/
+│   ├── processed/             # Train/eval CSVs (gitignored — regenerate via preprocess.py)
+│   │   ├── trump_train.csv         (41,351 tweets)
+│   │   ├── trump_eval.csv          (4,595 tweets)
+│   │   ├── musk_train.csv          (9,866 tweets — original posts only)
+│   │   ├── musk_eval.csv           (1,097 tweets)
+│   │   ├── democrat_senators_train.csv   (88,076 tweets)
+│   │   ├── democrat_senators_eval.csv    (9,787 tweets)
+│   │   ├── republican_senators_train.csv (83,303 tweets)
+│   │   └── republican_senators_eval.csv  (9,256 tweets)
+│   └── tweet_ids/             # Tweet IDs only — committed to git (ToS compliant)
+│       ├── trump_ids.txt
+│       ├── trump_eval_ids.txt
+│       ├── musk_ids.txt
+│       ├── democrat_senators_ids.txt
+│       └── republican_senators_ids.txt
+│
+├── results/                   # All numeric outputs — committed to git
+│   ├── trump_eval_scores.csv              # id, perplexity, z_score (4,595 rows)
+│   ├── musk_eval_scores.csv               # id, perplexity, z_score (1,097 rows)
+│   ├── democrat_senators_eval_scores.csv  # id, perplexity, z_score (9,787 rows)
+│   ├── republican_senators_eval_scores.csv # id, perplexity, z_score (9,256 rows)
+│   ├── trump_eval_manifest.json           # exact split metadata
+│   ├── musk_eval_manifest.json
+│   ├── democrat_senators_eval_manifest.json
+│   ├── republican_senators_eval_manifest.json
+│   ├── trump_live_scores.json             # live Truth Social posts scored 🟥 Trump only
+│   ├── cross_score_matrix.csv             # 4×4 cross-persona median PPL
+│   └── cross_score_matrix.json            # same + examples
+│
+├── assets/
+│   ├── full_analysis.png          # 4-panel: heatmap, KDE, scatter, style distances
+│   ├── results_all_personas.png   # 3-panel distribution comparison
+│   └── finetune_validation.png    # ALM vs base GPT-2 improvement
+│
+├── TRAINING.md                # Exact training provenance for all 4 models
+├── requirements.txt
+└── requirements-lock.txt      # Pinned versions for full reproducibility
+```
+
+> Raw tweet text is **gitignored** per X Terms of Service. Only tweet IDs are committed.
+> Regenerate CSVs: `python src/preprocess.py --persona trump`
 
 ---
 
