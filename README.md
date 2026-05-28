@@ -72,32 +72,6 @@ The key difference from other approaches: **the baseline is the person themselve
 
 ---
 
-## Optional robustness check: CAC-strict
-
-`CAC-strict` is a contrastive robustness metric for author-consistency scorers.
-It checks whether a scorer ranks authentic held-out author text above minimally
-corrupted variants of the same text. The benchmark is pairwise and reports one
-headline score: macro-averaged strict accuracy across nonce substitution,
-common-token swap, and adjacent content-word swap perturbations.
-
-See [docs/cac_strict.md](docs/cac_strict.md) for the protocol and CLI.
-CAC-strict can be run from the CLI or called from another evaluation runner:
-generate `texts_to_score.jsonl`, score those texts with any method, then
-evaluate the resulting `text_id,author_consistency_score` CSV.
-
-Smoke test:
-
-```bash
-python src/cac_strict.py --persona trump --sample-size 30 --scorer lexical
-```
-
-On the current Trump processed split (41,351 train / 4,595 eval rows), this
-generates 90 contrastive pairs and the bundled lexical smoke scorer reports
-CAC-strict = 60.0%. Use the same command with another processed `--persona`, or
-pass explicit split CSVs for a different scorer workflow.
-
----
-
 ## Live scoring — Trump's recent posts (May 2026) 🟥 Trump only
 
 > This section is Trump-specific. The same analysis can be run for any persona using `src/score_live_tweets.py` — just add posts to the `LIVE_POSTS` dict.
