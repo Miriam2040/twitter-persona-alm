@@ -1,0 +1,73 @@
+{
+  "by_perturbation": {
+    "adjacent_content_swap": {
+      "failures": 5,
+      "mean_margin": 21.440439025,
+      "median_margin": 16.481683,
+      "non_tie_accuracy": 0.975,
+      "pairs": 200,
+      "passes": 195,
+      "strict_accuracy": 0.975,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "common_token_swap": {
+      "failures": 21,
+      "mean_margin": 9.607929075,
+      "median_margin": 7.7409565,
+      "non_tie_accuracy": 0.895,
+      "pairs": 200,
+      "passes": 179,
+      "strict_accuracy": 0.895,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "nonce_substitution": {
+      "failures": 0,
+      "mean_margin": 49.663178685000005,
+      "median_margin": 41.8937855,
+      "non_tie_accuracy": 1.0,
+      "pairs": 200,
+      "passes": 200,
+      "strict_accuracy": 1.0,
+      "tie_rate": 0.0,
+      "ties": 0
+    }
+  },
+  "cac_strict": 0.9566666666666667,
+  "cac_strict_components": {
+    "adjacent_content_swap": 0.975,
+    "common_token_swap": 0.895,
+    "nonce_substitution": 1.0
+  },
+  "config": {
+    "common_token_pool_size": 251,
+    "eligible_eval_rows": 9380,
+    "eligible_eval_rows_sampled": 200,
+    "eval_csv": "data/processed/democrat_senators_eval.csv",
+    "eval_rows": 9787,
+    "id_column": "id",
+    "min_content_tokens": 5,
+    "sample_size": 200,
+    "scorer": "external",
+    "scores_csv": "benchmarks/cac-strict-alm-democrat_senators/alm_scores.csv",
+    "seed": 0,
+    "text_column": "text",
+    "train_csv": "data/processed/democrat_senators_train.csv",
+    "train_rows": 88076
+  },
+  "failures": 26,
+  "mean_margin": 26.903848928333332,
+  "median_margin": 18.9264965,
+  "non_tie_accuracy": 0.9566666666666667,
+  "pairs": 600,
+  "pairwise_accuracy": 0.9566666666666667,
+  "passes": 574,
+  "scorer": "external_scores_csv",
+  "skipped": {
+    "by_reason": {},
+    "count": 0
+  },
+  "tie_rate": 0.0,
+  "ties": 0
+}

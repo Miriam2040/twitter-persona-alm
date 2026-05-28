@@ -1,0 +1,73 @@
+{
+  "by_perturbation": {
+    "adjacent_content_swap": {
+      "failures": 9,
+      "mean_margin": 22.480528290000002,
+      "median_margin": 13.2188815,
+      "non_tie_accuracy": 0.955,
+      "pairs": 200,
+      "passes": 191,
+      "strict_accuracy": 0.955,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "common_token_swap": {
+      "failures": 20,
+      "mean_margin": 16.23197834,
+      "median_margin": 7.633929999999999,
+      "non_tie_accuracy": 0.9,
+      "pairs": 200,
+      "passes": 180,
+      "strict_accuracy": 0.9,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "nonce_substitution": {
+      "failures": 0,
+      "mean_margin": 60.387662410000004,
+      "median_margin": 39.716043,
+      "non_tie_accuracy": 1.0,
+      "pairs": 200,
+      "passes": 200,
+      "strict_accuracy": 1.0,
+      "tie_rate": 0.0,
+      "ties": 0
+    }
+  },
+  "cac_strict": 0.9516666666666667,
+  "cac_strict_components": {
+    "adjacent_content_swap": 0.955,
+    "common_token_swap": 0.9,
+    "nonce_substitution": 1.0
+  },
+  "config": {
+    "common_token_pool_size": 251,
+    "eligible_eval_rows": 2918,
+    "eligible_eval_rows_sampled": 200,
+    "eval_csv": "data/processed/trump_eval.csv",
+    "eval_rows": 4595,
+    "id_column": "id",
+    "min_content_tokens": 5,
+    "sample_size": 200,
+    "scorer": "external",
+    "scores_csv": "benchmarks/cac-strict-alm-trump/alm_scores.csv",
+    "seed": 0,
+    "text_column": "text",
+    "train_csv": "data/processed/trump_train.csv",
+    "train_rows": 41351
+  },
+  "failures": 29,
+  "mean_margin": 33.03338968,
+  "median_margin": 17.684969,
+  "non_tie_accuracy": 0.9516666666666667,
+  "pairs": 600,
+  "pairwise_accuracy": 0.9516666666666667,
+  "passes": 571,
+  "scorer": "external_scores_csv",
+  "skipped": {
+    "by_reason": {},
+    "count": 0
+  },
+  "tie_rate": 0.0,
+  "ties": 0
+}

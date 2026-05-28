@@ -1,0 +1,73 @@
+{
+  "by_perturbation": {
+    "adjacent_content_swap": {
+      "failures": 4,
+      "mean_margin": 22.000030595,
+      "median_margin": 16.960829,
+      "non_tie_accuracy": 0.98,
+      "pairs": 200,
+      "passes": 196,
+      "strict_accuracy": 0.98,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "common_token_swap": {
+      "failures": 25,
+      "mean_margin": 10.674887040000002,
+      "median_margin": 8.3099485,
+      "non_tie_accuracy": 0.875,
+      "pairs": 200,
+      "passes": 175,
+      "strict_accuracy": 0.875,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "nonce_substitution": {
+      "failures": 0,
+      "mean_margin": 53.098610394999994,
+      "median_margin": 41.7921665,
+      "non_tie_accuracy": 1.0,
+      "pairs": 200,
+      "passes": 200,
+      "strict_accuracy": 1.0,
+      "tie_rate": 0.0,
+      "ties": 0
+    }
+  },
+  "cac_strict": 0.9516666666666667,
+  "cac_strict_components": {
+    "adjacent_content_swap": 0.98,
+    "common_token_swap": 0.875,
+    "nonce_substitution": 1.0
+  },
+  "config": {
+    "common_token_pool_size": 251,
+    "eligible_eval_rows": 8632,
+    "eligible_eval_rows_sampled": 200,
+    "eval_csv": "data/processed/republican_senators_eval.csv",
+    "eval_rows": 9256,
+    "id_column": "id",
+    "min_content_tokens": 5,
+    "sample_size": 200,
+    "scorer": "external",
+    "scores_csv": "benchmarks/cac-strict-alm-republican_senators/alm_scores.csv",
+    "seed": 0,
+    "text_column": "text",
+    "train_csv": "data/processed/republican_senators_train.csv",
+    "train_rows": 83303
+  },
+  "failures": 29,
+  "mean_margin": 28.591176009999998,
+  "median_margin": 19.574845500000002,
+  "non_tie_accuracy": 0.9516666666666667,
+  "pairs": 600,
+  "pairwise_accuracy": 0.9516666666666667,
+  "passes": 571,
+  "scorer": "external_scores_csv",
+  "skipped": {
+    "by_reason": {},
+    "count": 0
+  },
+  "tie_rate": 0.0,
+  "ties": 0
+}

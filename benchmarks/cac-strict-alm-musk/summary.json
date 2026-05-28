@@ -1,0 +1,73 @@
+{
+  "by_perturbation": {
+    "adjacent_content_swap": {
+      "failures": 5,
+      "mean_margin": 163.438156225,
+      "median_margin": 36.243443,
+      "non_tie_accuracy": 0.975,
+      "pairs": 200,
+      "passes": 195,
+      "strict_accuracy": 0.975,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "common_token_swap": {
+      "failures": 19,
+      "mean_margin": 107.660613665,
+      "median_margin": 18.867238999999998,
+      "non_tie_accuracy": 0.905,
+      "pairs": 200,
+      "passes": 181,
+      "strict_accuracy": 0.905,
+      "tie_rate": 0.0,
+      "ties": 0
+    },
+    "nonce_substitution": {
+      "failures": 5,
+      "mean_margin": 251.97709928,
+      "median_margin": 98.0629825,
+      "non_tie_accuracy": 0.975,
+      "pairs": 200,
+      "passes": 195,
+      "strict_accuracy": 0.975,
+      "tie_rate": 0.0,
+      "ties": 0
+    }
+  },
+  "cac_strict": 0.9516666666666667,
+  "cac_strict_components": {
+    "adjacent_content_swap": 0.975,
+    "common_token_swap": 0.905,
+    "nonce_substitution": 0.975
+  },
+  "config": {
+    "common_token_pool_size": 251,
+    "eligible_eval_rows": 376,
+    "eligible_eval_rows_sampled": 200,
+    "eval_csv": "data/processed/musk_eval.csv",
+    "eval_rows": 1097,
+    "id_column": "id",
+    "min_content_tokens": 5,
+    "sample_size": 200,
+    "scorer": "external",
+    "scores_csv": "benchmarks/cac-strict-alm-musk/alm_scores.csv",
+    "seed": 0,
+    "text_column": "text",
+    "train_csv": "data/processed/musk_train.csv",
+    "train_rows": 9866
+  },
+  "failures": 29,
+  "mean_margin": 174.35862305666666,
+  "median_margin": 42.6186675,
+  "non_tie_accuracy": 0.9516666666666667,
+  "pairs": 600,
+  "pairwise_accuracy": 0.9516666666666667,
+  "passes": 571,
+  "scorer": "external_scores_csv",
+  "skipped": {
+    "by_reason": {},
+    "count": 0
+  },
+  "tie_rate": 0.0,
+  "ties": 0
+}
